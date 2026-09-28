@@ -1,0 +1,24 @@
+# Agent Manifest — AgentRegistry entry point
+# This file is required for AgentRegistry auto-discovery (lazy-load architecture).
+# Runtime parameters live in config/config.yaml.
+
+name: "MunicipalContractVariationEvidenceBriefAgent"
+namespace: "gov"
+version: "1.0.0"
+enabled: true
+class: "src.graph.graph.ContractVariationEvidenceBriefAgent"
+id: "GOV-C2-110"
+category: "Cat 2"
+# Static generation contract. Omitted by legacy templates defaults to deterministic.
+# This AG drives its LLM stage through the config["llm"] injection seam (BaseLLM), so the
+# truthful declaration is llm — omitting it would record an LLM template as deterministic.
+generation_mode: "llm"  # deterministic | llm
+industry: "GOV"
+base_type: "AgentBaseGraph"
+required_trust_level: "VERIFIED_EXTERNAL"
+requires:
+  extras: []
+  secrets:
+    - "CONTRACT_VARIATION_DB_DSN"
+    - "CONTRACT_VARIATION_KB_ENDPOINT"
+    - "CONTRACT_VARIATION_LLM_API_KEY"

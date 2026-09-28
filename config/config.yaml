@@ -1,0 +1,19 @@
+# Runtime parameters — GOV-C2-110
+# Static manifest (name / version / category / requires) lives in config/agent.yaml.
+# These values are initial defaults; template users tune them per environment.
+
+max_retry: 3
+timeout_s: 60
+
+# HITL is NOT used (see docs/01_proposal.md "HITL Gate" and docs/02_design.md
+# "人間関与の設計"). Verification failure returns requires_human_review + gap codes
+# and terminates normally; the caller fixes the input and re-invokes. No graph-internal
+# suspend/resume, therefore no checkpointer is required and PB-7 is auto-waived.
+memory_enabled: false
+
+# Stage 2 RecallNode — number of approved fact-check perspectives to recall.
+top_k: 8
+
+# Stage 4 EvidenceVerifyNode — below this confidence the draft is withheld and
+# requires_human_review is returned instead. Tune after STG measurement.
+evidence_confidence_threshold: 0.75
